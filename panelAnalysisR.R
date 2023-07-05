@@ -567,7 +567,7 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
       text=paste0(
         "stargazer(",paste0(modeloFinal$coeficientes,collapse=","),
         ",type='html',",
-        "digits=4,digit.separator=',',digit.separate=3,digits.extra=6,",
+        "digits=4,digit.separator=',',digit.separate=3,",
         "se=list(",paste0(modeloFinal$es,collapse=","),"),",
         "t=list(",paste0(modeloFinal$es,collapse=","),"),",
         "p=list(",paste0(modeloFinal$pvals,collapse=","),"),",
@@ -609,7 +609,7 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
       text=paste0(
         "outPutTable=stargazer(",paste0(modeloFinal$coeficientes,collapse=","),
         ",type='text',",
-        "digits=4,digit.separator=',',digit.separate=3,digits.extra=6,",        
+        "digits=4,digit.separator=',',digit.separate=3,",        
         "se=list(",paste0(modeloFinal$es,collapse=","),"),",
         "t=list(",paste0(modeloFinal$es,collapse=","),"),",
         "p=list(",paste0(modeloFinal$pvals,collapse=","),"),",

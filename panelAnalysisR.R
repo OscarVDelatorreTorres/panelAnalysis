@@ -548,3 +548,19 @@ AIC.plm <- function(object){
   hq.plm=(2*k.plm)-(2*llf)
   return(hq.plm)
 }
+
+BIC.plm <- function(object){
+  llf <- -length(object$residuals) * log(2 * var(object$residuals) * pi)/2 - deviance(object)/(2 * var(object$residuals))
+  k.plm=object$df.residual
+  n.plm=length(object$coefficients)
+  hq.plm=(k.plm*log(n.plm))-(2*llf)
+  return(hq.plm)
+}
+
+HQC.plm <- function(object){
+  llf <- -length(object$residuals) * log(2 * var(object$residuals) * pi)/2 - deviance(object)/(2 * var(object$residuals))
+  k.plm=object$df.residual
+  n.plm=length(object$coefficients)
+  hq.plm=-(2*llf)+((2*k.plm)*log(log(n.plm)))
+  return(hq.plm)
+}

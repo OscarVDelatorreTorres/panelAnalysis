@@ -557,11 +557,11 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
   
   modelVector=paste0(paste("'",modeloFinal$model,sep=""),"'",collapse=",")
   
-  
+  # Word an Exceln output tables
   eval(
     parse(
       text=paste0(
-        "stargazer(",paste0(modeloFinal$coeficientes,collapse=","),
+        "outPutTable=stargazer(",paste0(modeloFinal$coeficientes,collapse=","),
         ",type='html',",
         "se=list(",paste0(modeloFinal$es,collapse=","),"),",
         "t=list(",paste0(modeloFinal$es,collapse=","),"),",
@@ -611,7 +611,8 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
   # Generates a list objetc with the results:
   objtecOut=list(
     pValues=robustPvalsTable,
-    panelTable=modeloFinal
+    panelTable=modeloFinal,
+    outPutTable=outPutTable
   )
   
   cat("\f")

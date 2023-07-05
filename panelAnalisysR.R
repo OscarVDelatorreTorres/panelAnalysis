@@ -20,7 +20,8 @@ panelAnalisys=function(eqs,outputFolder,data,eqsType){
   
   panelTests=data.frame(modelo=paste0("Modelo",seq(from=1,to=neqs,by=1)),
                         fTest=matrix(0,neqs,1),
-                        hTest=matrix(0,neqs,1))
+                        hTest=matrix(0,neqs,1),
+                        model=matrix(0,neqs,1))
   
   modeloFinal=data.frame(coeficientes=matrix(0,neqs,1),
                          es=matrix(0,neqs,1),
@@ -119,6 +120,12 @@ panelAnalisys=function(eqs,outputFolder,data,eqsType){
                )
              )
              
+             if (f.test<0.05){
+               panelTests$modelo[a]="Fixed effects within (best fitting)"
+             } else {
+               panelTests$modelo[a]="Pooled regression (best fitting)"
+             }
+             
 ###############################################################################    
              
 #--- Estima regresiones tipo efectos aleatorios:
@@ -178,16 +185,19 @@ panelAnalisys=function(eqs,outputFolder,data,eqsType){
                # Realiza prueba Hausman y registra en tabla:
                eval(
                  parse(
-                   text=paste0("panelTests$hTest[a]=round(phtest(fixedEf",a,",randomEf",a,")$p.value,4)")
+                   text=paste0("panelTests$hTest[a]='Not feasible'")
                  )
                )
                
                # Selección final para el análisis:
                if (f.test<0.05){
                  modelId=2
+                 panelTests$modelo[a]="Fixed effects within (best fitting)"                 
                } else {
-                 modelId=1  
+                 modelId=1 
+                 panelTests$modelo[a]="Pooled regression (best fitting)"                 
                }
+               
                
                # Guarda el mejor modelo:
                modeloFinal$coeficientes[a]=eqsTableScores[a,modelId]
@@ -245,12 +255,18 @@ panelAnalisys=function(eqs,outputFolder,data,eqsType){
                if (f.test<0.05){
                  if (hausman.test>0.05){
                    modelId=3
+                   panelTests$modelo[a]="Random effects within (best fitting)"                   
                  } else {
                    modelId=2
+                   panelTests$modelo[a]="Fixed effects within (best fitting)"                   
                  }
                } else {
                  modelId=1  
+                 panelTests$modelo[a]="Pooled regression (best fitting)"                 
                }
+               
+ 
+               
                # Guarda el mejor modelo:
                modeloFinal$coeficientes[a]=eqsTableScores[a,modelId]
                modeloFinal$es[a]=robustErrorsTable[a,modelId]
@@ -470,15 +486,18 @@ panelAnalisys=function(eqs,outputFolder,data,eqsType){
   )
   
   # Exporta pruebas F y de Hausman:
-  colnames(panelTests)=c("Regresión","Prueba F","Prueba de Hausman")
-  eval(parse(text=paste0("stargazer(panelTests,summary=FALSE,type='html',rownames = FALSE,title='Pruebas F y de Hausman para las regresiones',
+  colnames(panelTests)=c("Regression","f-test","Hausman test","Best fitting model")
+  
+  eval(parse(text=paste0("stargazer(panelTests,summary=FALSE,type='html',rownames = FALSE,
+  title='F and Hausman test summary table',
           out=paste0(","c('",
                          paste0(folder,"/pruebasEfectosReg.doc'"),",'",
                          paste0(folder,"/pruebasEfectosReg.xls'"),
                          ")))")))
   
   # Exporta tabla de pValues:
-  eval(parse(text=paste0("stargazer(robustPvalsTable,summary=FALSE,type='html',rownames = FALSE,title='Valores p de las regresiones',
+  eval(parse(text=paste0("stargazer(robustPvalsTable,summary=FALSE,type='html',rownames = FALSE,
+  title='Regressions' p-values,
           out=paste0(","c('",
                          paste0(folder,"/pValuesregs.doc'"),",'",
                          paste0(folder,"/pValuesRegs.xls'"),

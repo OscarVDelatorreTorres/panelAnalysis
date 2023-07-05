@@ -658,11 +658,28 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
                          paste0(folder,"/pValuesregs.doc'"),",'",
                          paste0(folder,"/pValuesRegs.xls'"),
                          ")))")))
-  # Generates a list objetc with the results:
+  
+  # Creates summary tables in Word and Excel:
+  eval(parse(text=paste0("stargazer(Datos,summary=TRUE,type='html',
+  title='Input data summary',
+          out=paste0(","c('",
+                         paste0(folder,"/inputDataSummary.doc'"),",'",
+                         paste0(folder,"/inputDataSummary.xls'"),
+                         ")))")))  
+  
+  # Creates summary tables in Latex:
+  eval(parse(text=paste0("inputSummary=stargazer(Datos,summary=TRUE,type='text',
+  title='Input data summary',
+          out=paste0(","c('",
+                         paste0(folder,"/inputDataSummary.tex'"),
+                         ")))")))  
+  
+  # Generates a list object with the results:
   objtecOut=list(
     pValues=robustPvalsTable,
     panelTable=modeloFinal,
-    outPutTable=outPutTable
+    outPutTable=outPutTable,
+    inputSummary=inputSummary
   )
   
   cat("\f")

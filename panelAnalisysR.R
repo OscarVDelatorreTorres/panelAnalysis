@@ -127,66 +127,133 @@ panelAnalisys=function(eqs,outputFolder,data,eqsType){
              print(paste0("Calculating random effects ",a," of ",neqs," for ",folder))
              
              eval(
-               parse(text=paste0("randomEf",a,"=plm('",eqs[a],"',data=Datos,model='random',random.method='swar')"))
-             )
-             # Registra nombre en tabla de modelos:
-             eqsTableScores$Random[a]=paste0("randomEf",a)
-             
-             # Registra el LLF:  
-             eval(
-               parse(text=paste0("llfTableScores$Random[a]=logLik.plm(randomEf",a,")[1]"))
+               parse(text=paste0("randomEf",a,"=tryCatch(plm('",eqs[a],"',data=Datos,model='random',random.method='swar'), error=function(e) e=NA)"))
              )
              
-             # Registra Akaike:
-             eval(
-               parse(text=paste0("aicTableScores$Random[a]=AIC.plm(randomEf",a,")[1]"))
-             )
-             
-             # Realiza estimación robusta de errores estándar:
-             eval(
-               parse(
-                 text=paste0("tbl = coeftest(randomEf",a, 
-                             ",vcov=vcovNW(randomEf",a,",cluster='group'))")
+             if (is.na(randomEfa)){
+               
+# Random effects is na then fixed effects within:
+ 
+               # Registra nombre en tabla de modelos:
+               eqsTableScores$Random[a]=paste0("fixedEf",a)
+               
+               # Registra el LLF:  
+               eval(
+                 parse(text=paste0("llfTableScores$Random[a]=logLik.plm(fixedEf",a,")[1]"))
                )
-             )
-             
-             robustErrorsTable$Random[a]=paste0("c(",paste(round(tbl[,2],4),collapse=","),")")
-             
-             robustTvalsTable$Random[a]=paste0("c(",paste(round(tbl[,3],4),collapse=","),")")
-             
-             robustPvalsTable$Random[a]=paste0("c(",paste(round(tbl[,4],4),collapse=","),")")
-             
-             # REaliza prueba de Hausman par COMPARAR:
-             eval(
-               parse(
-                 text=paste0("hausman.test=round(phtest(fixedEf",a,",randomEf",a,")$p.value,4)")
-               )  
-             )
-             
-             # Realiza prueba Hausman y registra en tabla:
-             eval(
-               parse(
-                 text=paste0("panelTests$hTest[a]=round(phtest(fixedEf",a,",randomEf",a,")$p.value,4)")
+               
+               # Registra Akaike:
+               eval(
+                 parse(text=paste0("aicTableScores$Random[a]=AIC.plm(fixedEf",a,")[1]"))
                )
-             )
-             
-             # Selección final para el análisis:
-             if (f.test<0.05){
-               if (hausman.test>0.05){
-                 modelId=3
-               } else {
+               
+               # Realiza estimación robusta de errores estándar:
+               eval(
+                 parse(
+                   text=paste0("tbl = coeftest(fixedEf",a, 
+                               ",vcov=vcovNW(fixedEf",a,",cluster='group'))")
+                 )
+               )
+               
+               robustErrorsTable$Random[a]=paste0("c(",paste(round(tbl[,2],4),collapse=","),")")
+               
+               robustTvalsTable$Random[a]=paste0("c(",paste(round(tbl[,3],4),collapse=","),")")
+               
+               robustPvalsTable$Random[a]=paste0("c(",paste(round(tbl[,4],4),collapse=","),")")
+               
+               # REaliza prueba de Hausman par COMPARAR:
+               eval(
+                 parse(
+                   text=paste0("hausman.test=NA")
+                 )  
+               )
+               
+               # Realiza prueba Hausman y registra en tabla:
+               eval(
+                 parse(
+                   text=paste0("panelTests$hTest[a]=round(phtest(fixedEf",a,",randomEf",a,")$p.value,4)")
+                 )
+               )
+               
+               # Selección final para el análisis:
+               if (f.test<0.05){
                  modelId=2
+               } else {
+                 modelId=1  
                }
+               
+               # Guarda el mejor modelo:
+               modeloFinal$coeficientes[a]=eqsTableScores[a,modelId]
+               modeloFinal$es[a]=robustErrorsTable[a,modelId]
+               modeloFinal$tvals[a]=robustTvalsTable[a,modelId]
+               modeloFinal$pvals[a]=robustPvalsTable[a,modelId]
+               modeloFinal$llfs[a]=llfTableScores[a,modelId]
+               modeloFinal$aics[a]=aicTableScores[a,modelId]                           
+               
              } else {
-               modelId=1  
+# Random effects is not na:
+               # Registra nombre en tabla de modelos:
+               eqsTableScores$Random[a]=paste0("randomEf",a)
+               
+               # Registra el LLF:  
+               eval(
+                 parse(text=paste0("llfTableScores$Random[a]=logLik.plm(randomEf",a,")[1]"))
+               )
+               
+               # Registra Akaike:
+               eval(
+                 parse(text=paste0("aicTableScores$Random[a]=AIC.plm(randomEf",a,")[1]"))
+               )
+               
+               # Realiza estimación robusta de errores estándar:
+               eval(
+                 parse(
+                   text=paste0("tbl = coeftest(randomEf",a, 
+                               ",vcov=vcovNW(randomEf",a,",cluster='group'))")
+                 )
+               )
+               
+               robustErrorsTable$Random[a]=paste0("c(",paste(round(tbl[,2],4),collapse=","),")")
+               
+               robustTvalsTable$Random[a]=paste0("c(",paste(round(tbl[,3],4),collapse=","),")")
+               
+               robustPvalsTable$Random[a]=paste0("c(",paste(round(tbl[,4],4),collapse=","),")")
+               
+               # REaliza prueba de Hausman par COMPARAR:
+               eval(
+                 parse(
+                   text=paste0("hausman.test=round(phtest(fixedEf",a,",randomEf",a,")$p.value,4)")
+                 )  
+               )
+               
+               # Realiza prueba Hausman y registra en tabla:
+               eval(
+                 parse(
+                   text=paste0("panelTests$hTest[a]=round(phtest(fixedEf",a,",randomEf",a,")$p.value,4)")
+                 )
+               )
+               
+               # Selección final para el análisis:
+               if (f.test<0.05){
+                 if (hausman.test>0.05){
+                   modelId=3
+                 } else {
+                   modelId=2
+                 }
+               } else {
+                 modelId=1  
+               }
+               # Guarda el mejor modelo:
+               modeloFinal$coeficientes[a]=eqsTableScores[a,modelId]
+               modeloFinal$es[a]=robustErrorsTable[a,modelId]
+               modeloFinal$tvals[a]=robustTvalsTable[a,modelId]
+               modeloFinal$pvals[a]=robustPvalsTable[a,modelId]
+               modeloFinal$llfs[a]=llfTableScores[a,modelId]
+               modeloFinal$aics[a]=aicTableScores[a,modelId]
+               
+ # end else if NA model              
              }
-             # Guarda el mejor modelo:
-             modeloFinal$coeficientes[a]=eqsTableScores[a,modelId]
-             modeloFinal$es[a]=robustErrorsTable[a,modelId]
-             modeloFinal$tvals[a]=robustTvalsTable[a,modelId]
-             modeloFinal$pvals[a]=robustPvalsTable[a,modelId]
-             modeloFinal$llfs[a]=llfTableScores[a,modelId]
-             modeloFinal$aics[a]=aicTableScores[a,modelId]
+             
              
            },
            

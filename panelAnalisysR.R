@@ -518,8 +518,15 @@ panelAnalisys=function(eqs,outputFolder,data,eqsType){
                          paste0(folder,"/pValuesregs.doc'"),",'",
                          paste0(folder,"/pValuesRegs.xls'"),
                          ")))")))
+  # Generates a list objetc with the results:
+  objtecOut=list(
+    pValues=robustPvalsTable,
+    panelTable=modeloFinal
+  )
   
   cat("\f")
   print(paste0("The panel regression analisys is done for the ",neqs," equations of interest..."))
+  
+  return(objtecOut)
 }
 

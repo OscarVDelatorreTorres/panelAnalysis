@@ -533,3 +533,18 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
   return(objtecOut)
 }
 
+logLik.plm <- function(object){
+  out <- -length(object$residuals) * log(2 * var(object$residuals) * pi)/2 - deviance(object)/(2 * var(object$residuals))
+  
+  attr(out,"df") <- length(object$residuals) - object$df.residual
+  attr(out,"nobs") <- length(object$residuals)
+  return(out)
+}
+
+AIC.plm <- function(object){
+  llf <- -length(object$residuals) * log(2 * var(object$residuals) * pi)/2 - deviance(object)/(2 * var(object$residuals))
+  k.plm=object$df.residual
+  n.plm=length(object$coefficients)
+  hq.plm=(2*k.plm)-(2*llf)
+  return(hq.plm)
+}

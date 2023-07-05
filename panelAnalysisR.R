@@ -602,8 +602,8 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
   
   # Latex and output (object) tables:
   cat("\f")
-  print("Exporting panel data analysis to Word and Excel files...")
-  # Word an Excel output tables
+  print("Exporting panel data analysis to LaTex file...")
+
   eval(
     parse(
       text=paste0(

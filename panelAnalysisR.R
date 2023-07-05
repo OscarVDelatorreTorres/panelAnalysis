@@ -577,12 +577,6 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
         "c('AIC',",
         paste0(round(modeloFinal$aics,digits=4),collapse=","),
         ")",
-        "c('BIC',",
-        paste0(round(modeloFinal$bics,digits=4),collapse=","),
-        ")",        
-        "c('HQIC',",
-        paste0(round(modeloFinal$hqics,digits=4),collapse=","),
-        ")",
         
         "),",
         "report='vc*',no.space=TRUE,digits=4,",

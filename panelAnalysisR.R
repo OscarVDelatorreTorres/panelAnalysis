@@ -609,7 +609,7 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
       text=paste0(
         "outPutTable=stargazer(",paste0(modeloFinal$coeficientes,collapse=","),
         ",type='text',",
-        "digits=4,digit.separator=',',digit.separate=3,",        
+        "digit.separator=',',digit.separate=3,",       
         "se=list(",paste0(modeloFinal$es,collapse=","),"),",
         "t=list(",paste0(modeloFinal$es,collapse=","),"),",
         "p=list(",paste0(modeloFinal$pvals,collapse=","),"),",

@@ -481,10 +481,7 @@ panelAnalisys=function(eqs,outputFolder,data,eqsType){
         "p=list(",paste0(modeloFinal$pvals,collapse=","),"),",
         
         "add.lines=list(",
-        
-        "c('Model',",
-        paste0(as.character(modeloFinal$model),collapse=","),
-        "),",
+
         "c('LLF',",
         paste0(round(modeloFinal$llfs,digits=4),collapse=","),
         "),",

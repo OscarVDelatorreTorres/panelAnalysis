@@ -2,7 +2,7 @@
 # The results are exported in the folder (given the file path in the "folder" argument) in Microsoft excel and word in *.xls and *.doc files.
 
 
-panelAnalisys=function(eqs,outputFolder,data,eqsType){
+panelAnalysis=function(eqs,outputFolder,data,eqsType){
   
   Datos=data
   neqs=length(eqs)
@@ -480,8 +480,9 @@ panelAnalisys=function(eqs,outputFolder,data,eqsType){
         "p=list(",paste0(modeloFinal$pvals,collapse=","),"),",
         
         "add.lines=list(",
-
-        
+        "c('Model',",
+        paste0(round(modeloFinal$llfs*2,digits=4),collapse=","),
+        "),",        
         "c('LLF',",
         paste0(round(modeloFinal$llfs,digits=4),collapse=","),
         "),",

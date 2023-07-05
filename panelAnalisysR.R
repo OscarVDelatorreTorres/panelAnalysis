@@ -127,11 +127,18 @@ panelAnalisys=function(eqs,outputFolder,data,eqsType){
              print(paste0("Calculating random effects ",a," of ",neqs," for ",folder))
              
              eval(
+               eval(
                parse(text=paste0("randomEf",a,"=tryCatch(plm('",eqs[a],"',data=Datos,model='random',random.method='swar'), error=function(e) e=NA)"))
-             )
+               )
+               )
              print("Aquí!")
-             if (is.na(randomEfa)){
-               
+             
+             eval(
+               parse(text=paste0("continueRandomEf=is.na(randomEf",a,")"))
+             )
+             
+             if (continueRandomEf){
+               print("efectos aletorios estimados...")
 # Random effects is na then fixed effects within:
  
                # Registra nombre en tabla de modelos:

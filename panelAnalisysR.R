@@ -138,9 +138,10 @@ panelAnalisys=function(eqs,outputFolder,data,eqsType){
              )
              
              if (continueRandomEf){
-               print("efectos aletorios estimados...")
+              
 # Random effects is na then fixed effects within:
- 
+               print("efectos aletorios estimados...")
+               
                # Registra nombre en tabla de modelos:
                eqsTableScores$Random[a]=paste0("fixedEf",a)
                
@@ -199,6 +200,7 @@ panelAnalisys=function(eqs,outputFolder,data,eqsType){
                
              } else {
 # Random effects is not na:
+               print("efectos Fijos estimados...")
                # Registra nombre en tabla de modelos:
                eqsTableScores$Random[a]=paste0("randomEf",a)
                

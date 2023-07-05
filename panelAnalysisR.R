@@ -556,13 +556,18 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
   # 
   
   modelVector=paste0(paste("'",modeloFinal$model,sep=""),"'",collapse=",")
-  
-  # Word an Exceln output tables
+
+  # Exporting analysis output tables:
+  # Word and Excel tables:
+  cat("\f")
+  print("Exporting panel data analysis to Word and Excel files...")
+  # Word an Excel output tables
   eval(
     parse(
       text=paste0(
-        "outPutTable=stargazer(",paste0(modeloFinal$coeficientes,collapse=","),
+        "stargazer(",paste0(modeloFinal$coeficientes,collapse=","),
         ",type='html',",
+        "digits=4,digit.separator=',',digit.separate=3,digits.extra=6,",
         "se=list(",paste0(modeloFinal$es,collapse=","),"),",
         "t=list(",paste0(modeloFinal$es,collapse=","),"),",
         "p=list(",paste0(modeloFinal$pvals,collapse=","),"),",
@@ -594,6 +599,47 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
       )
     )
   )
+  
+  # Latex and output (object) tables:
+  cat("\f")
+  print("Exporting panel data analysis to Word and Excel files...")
+  # Word an Excel output tables
+  eval(
+    parse(
+      text=paste0(
+        "outPutTable=stargazer(",paste0(modeloFinal$coeficientes,collapse=","),
+        ",type='text',",
+        "digits=4,digit.separator=',',digit.separate=3,digits.extra=6,",        
+        "se=list(",paste0(modeloFinal$es,collapse=","),"),",
+        "t=list(",paste0(modeloFinal$es,collapse=","),"),",
+        "p=list(",paste0(modeloFinal$pvals,collapse=","),"),",
+        
+        "add.lines=list(",
+        "c('Model',",
+        modelVector,
+        "),",        
+        "c('LLF',",
+        paste0(round(modeloFinal$llfs,digits=4),collapse=","),
+        "),",
+        "c('AIC',",
+        paste0(round(modeloFinal$aics,digits=4),collapse=","),
+        "),",
+        "c('BIC',",
+        paste0(round(modeloFinal$bics,digits=4),collapse=","),
+        "),",
+        "c('HQIC',",
+        paste0(round(modeloFinal$hqics,digits=4),collapse=","),
+        ")",        
+        "),",
+        
+        "report='vc*',no.space=TRUE,digits=4,",
+        "out=c('",
+        paste0(folder,"/panelFinalReg.tex'"),
+        ")",
+        ")"
+      )
+    )
+  )  
   
   # Exporta pruebas F y de Hausman:
   colnames(panelTests)=c("Regression","f-test","Hausman test","Best fitting model")

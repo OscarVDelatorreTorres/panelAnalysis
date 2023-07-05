@@ -469,8 +469,7 @@ panelAnalisys=function(eqs,outputFolder,data,eqsType){
     subdir1=dir.create(folder)
   }
   
-  # Generates de panel regressions summary table:
-  print("prueba aquí...")
+  # 
   eval(
     parse(
       text=paste0(
@@ -481,7 +480,7 @@ panelAnalisys=function(eqs,outputFolder,data,eqsType){
         "p=list(",paste0(modeloFinal$pvals,collapse=","),"),",
         
         "add.lines=list(",
-
+        
         "c('LLF',",
         paste0(round(modeloFinal$llfs,digits=4),collapse=","),
         "),",

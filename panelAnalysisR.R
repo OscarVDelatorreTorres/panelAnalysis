@@ -14,6 +14,8 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
                             Random=matrix(0,neqs,1))
   llfTableScores=eqsTableScores
   aicTableScores=eqsTableScores
+  bicTableScores=eqsTableScores
+  hqicTableScores=eqsTableScores
   robustErrorsTable=eqsTableScores
   robustTvalsTable=eqsTableScores
   robustPvalsTable=eqsTableScores
@@ -29,6 +31,8 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
                          pvals=matrix(0,neqs,1),
                          llfs=matrix(0,neqs,1),
                          aics=matrix(0,neqs,1),
+                         bics=matrix(0,neqs,1),
+                         hqics=matrix(0,neqs,1),                         
                          model=matrix(0,neqs,1))
   
   for (a in 1:neqs){
@@ -56,6 +60,16 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
              eval(
                parse(text=paste0("aicTableScores$Pool[a]=AIC.plm(pool",a,")[1]"))
              )
+             
+             # Registra BIC:
+             eval(
+               parse(text=paste0("bicTableScores$Pool[a]=BIC.plm(pool",a,")[1]"))
+             )  
+             
+             # Registra HQIC:
+             eval(
+               parse(text=paste0("hqicTableScores$Pool[a]=HQIC.plm(pool",a,")[1]"))
+             )               
              
              # Realiza estimación robusta de errores estándar:
              eval(
@@ -92,6 +106,16 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
              eval(
                parse(text=paste0("aicTableScores$Within[a]=AIC.plm(fixedEf",a,")[1]"))
              )
+             
+             # Registra BIC:
+             eval(
+               parse(text=paste0("bicTableScores$Within[a]=BIC.plm(fixedEf",a,")[1]"))
+             )
+             
+             # Registra HQIC:
+             eval(
+               parse(text=paste0("hqicTableScores$Within[a]=HQIC.plm(fixedEf",a,")[1]"))
+             )             
              
              # Realiza estimación robusta de errores estándar:
              eval(
@@ -162,6 +186,16 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
                  parse(text=paste0("aicTableScores$Random[a]=AIC.plm(fixedEf",a,")[1]"))
                )
                
+               # Registra BIC:
+               eval(
+                 parse(text=paste0("bicTableScores$Random[a]=BIC.plm(fixedEf",a,")[1]"))
+               ) 
+               
+               # Registra HQIC:
+               eval(
+                 parse(text=paste0("hqicTableScores$Random[a]=HQIC.plm(fixedEf",a,")[1]"))
+               )                
+               
                # Realiza estimación robusta de errores estándar:
                eval(
                  parse(
@@ -209,7 +243,9 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
                modeloFinal$pvals[a]=robustPvalsTable[a,modelId]
                modeloFinal$llfs[a]=llfTableScores[a,modelId]
                modeloFinal$aics[a]=aicTableScores[a,modelId]                           
-                 
+               modeloFinal$bics[a]=bicTableScores[a,modelId]
+               modeloFinal$hqics[a]=hqicTableScores[a,modelId]
+                                                  
              } else {
 # Random effects is not na:
              
@@ -225,6 +261,16 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
                eval(
                  parse(text=paste0("aicTableScores$Random[a]=AIC.plm(randomEf",a,")[1]"))
                )
+               
+               # Registra BIC:
+               eval(
+                 parse(text=paste0("bicTableScores$Random[a]=BIC.plm(randomEf",a,")[1]"))
+               ) 
+               
+               # Registra HQIC:
+               eval(
+                 parse(text=paste0("hqicTableScores$Random[a]=HQIC.plm(randomEf",a,")[1]"))
+               )                
                
                # Realiza estimación robusta de errores estándar:
                eval(
@@ -280,6 +326,8 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
                modeloFinal$pvals[a]=robustPvalsTable[a,modelId]
                modeloFinal$llfs[a]=llfTableScores[a,modelId]
                modeloFinal$aics[a]=aicTableScores[a,modelId]
+               modeloFinal$bics[a]=bicTableScores[a,modelId]
+               modeloFinal$hqics[a]=hqicTableScores[a,modelId]               
                
  # end else if NA model              
              }
@@ -311,6 +359,16 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
                parse(text=paste0("aicTableScores$Pool[a]=AIC.plm(pool",a,")[1]"))
              )
              
+             # Registra BIC:
+             eval(
+               parse(text=paste0("bicTableScores$Pool[a]=BIC.plm(pool",a,")[1]"))
+             ) 
+             
+             # Registra HQIC:
+             eval(
+               parse(text=paste0("hqicTableScores$Pool[a]=HQIC.plm(pool",a,")[1]"))
+             )              
+             
              # Realiza estimación robusta de errores estándar:
              eval(
                parse(
@@ -340,7 +398,9 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
              modeloFinal$tvals[a]=robustTvalsTable[a,1]
              modeloFinal$pvals[a]=robustPvalsTable[a,1]
              modeloFinal$llfs[a]=llfTableScores[a,1]
-             modeloFinal$aics[a]=aicTableScores[a,1]   
+             modeloFinal$aics[a]=aicTableScores[a,1] 
+             modeloFinal$bics[a]=bicTableScores[a,1]
+             modeloFinal$hqics[a]=hqicTableScores[a,1]             
              modeloFinal$model[a]="Pool"
            },
            
@@ -367,6 +427,16 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
              eval(
                parse(text=paste0("aicTableScores$Within[a]=AIC.plm(fixedEf",a,")[1]"))
              )
+             
+             # Registra BIC:
+             eval(
+               parse(text=paste0("bicTableScores$Within[a]=BIC.plm(fixedEf",a,")[1]"))
+             )             
+             
+             # Registra HQIC:
+             eval(
+               parse(text=paste0("hqicTableScores$Within[a]=HQIC.plm(fixedEf",a,")[1]"))
+             )     
              
              # Realiza estimación robusta de errores estándar:
              eval(
@@ -396,7 +466,9 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
              modeloFinal$tvals[a]=robustTvalsTable[a,2]
              modeloFinal$pvals[a]=robustPvalsTable[a,2]
              modeloFinal$llfs[a]=llfTableScores[a,2]
-             modeloFinal$aics[a]=aicTableScores[a,2]  
+             modeloFinal$aics[a]=aicTableScores[a,2] 
+             modeloFinal$bics[a]=bicTableScores[a,2]
+             modeloFinal$hqics[a]=hqicTableScores[a,2]             
              modeloFinal$model[a]="Fixed eff."
              
            },
@@ -425,6 +497,16 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
              eval(
                parse(text=paste0("aicTableScores$Random[a]=AIC.plm(randomEf",a,")[1]"))
              )
+             
+             # Registra BIC:
+             eval(
+               parse(text=paste0("bicTableScores$Random[a]=BIC.plm(randomEf",a,")[1]"))
+             ) 
+             
+             # Registra HQIC:
+             eval(
+               parse(text=paste0("hqicTableScores$Random[a]=HQIC.plm(randomEf",a,")[1]"))
+             )              
              
              # Realiza estimación robusta de errores estándar:
              eval(
@@ -455,6 +537,8 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
              modeloFinal$pvals[a]=robustPvalsTable[a,3]
              modeloFinal$llfs[a]=llfTableScores[a,3]
              modeloFinal$aics[a]=aicTableScores[a,3]
+             modeloFinal$bics[a]=bicTableScores[a,3]
+             modeloFinal$hqics[a]=hqicTableScores[a,3]             
              modeloFinal$model[a]="Random eff."
              
            }
@@ -493,6 +577,13 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
         "c('AIC',",
         paste0(round(modeloFinal$aics,digits=4),collapse=","),
         ")",
+        "c('BIC',",
+        paste0(round(modeloFinal$bics,digits=4),collapse=","),
+        ")",        
+        "c('HQIC',",
+        paste0(round(modeloFinal$hqics,digits=4),collapse=","),
+        ")",
+        
         "),",
         "report='vc*',no.space=TRUE,digits=4,",
         "out=c('",
@@ -557,7 +648,7 @@ BIC.plm <- function(object){
   return(hq.plm)
 }
 
-HQC.plm <- function(object){
+HQIC.plm <- function(object){
   llf <- -length(object$residuals) * log(2 * var(object$residuals) * pi)/2 - deviance(object)/(2 * var(object$residuals))
   k.plm=object$df.residual
   n.plm=length(object$coefficients)

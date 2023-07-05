@@ -18,7 +18,7 @@ panelAnalisys=function(eqs,outputFolder,data,eqsType){
   robustTvalsTable=eqsTableScores
   robustPvalsTable=eqsTableScores
   
-  panelTests=data.frame(modelo=paste0("Modelo",seq(from=1,to=neqs,by=1)),
+  panelTests=data.frame(modelo=paste0("Model ",seq(from=1,to=neqs,by=1)),
                         fTest=matrix(0,neqs,1),
                         hTest=matrix(0,neqs,1),
                         model=matrix(0,neqs,1))
@@ -28,7 +28,8 @@ panelAnalisys=function(eqs,outputFolder,data,eqsType){
                          tvals=matrix(0,neqs,1),
                          pvals=matrix(0,neqs,1),
                          llfs=matrix(0,neqs,1),
-                         aics=matrix(0,neqs,1))
+                         aics=matrix(0,neqs,1),
+                         model=matrix(0,neqs,1))
   
   for (a in 1:neqs){
     switch(eqsType[a],
@@ -121,9 +122,9 @@ panelAnalisys=function(eqs,outputFolder,data,eqsType){
              )
              
              if (f.test<0.05){
-               panelTests$modelo[a]="Fixed effects within (best fitting)"
+               panelTests$model[a]="Fixed effects within (best fitting)"
              } else {
-               panelTests$modelo[a]="Pooled regression (best fitting)"
+               panelTests$model[a]="Pooled regression (best fitting)"
              }
              
 ###############################################################################    
@@ -192,10 +193,12 @@ panelAnalisys=function(eqs,outputFolder,data,eqsType){
                # Selección final para el análisis:
                if (f.test<0.05){
                  modelId=2
-                 panelTests$modelo[a]="Fixed effects within (best fitting)"                 
+                 panelTests$model[a]="Fixed effects within (best fitting)" 
+                 modeloFinal$model[a]="Fixed eff."
                } else {
                  modelId=1 
-                 panelTests$modelo[a]="Pooled regression (best fitting)"                 
+                 panelTests$model[a]="Pooled regression (best fitting)"  
+                 modeloFinal$model[a]="Pool"
                }
                
                
@@ -206,7 +209,7 @@ panelAnalisys=function(eqs,outputFolder,data,eqsType){
                modeloFinal$pvals[a]=robustPvalsTable[a,modelId]
                modeloFinal$llfs[a]=llfTableScores[a,modelId]
                modeloFinal$aics[a]=aicTableScores[a,modelId]                           
-               
+                 
              } else {
 # Random effects is not na:
                print("efectos Fijos estimados...")
@@ -255,14 +258,17 @@ panelAnalisys=function(eqs,outputFolder,data,eqsType){
                if (f.test<0.05){
                  if (hausman.test>0.05){
                    modelId=3
-                   panelTests$modelo[a]="Random effects within (best fitting)"                   
+                   panelTests$model[a]="Random effects within (best fitting)" 
+                   modeloFinal$model[a]="Random eff."
                  } else {
                    modelId=2
-                   panelTests$modelo[a]="Fixed effects within (best fitting)"                   
+                   panelTests$model[a]="Fixed effects within (best fitting)" 
+                   modeloFinal$model[a]="Fixed eff."
                  }
                } else {
                  modelId=1  
-                 panelTests$modelo[a]="Pooled regression (best fitting)"                 
+                 panelTests$model[a]="Pooled regression (best fitting)" 
+                 modeloFinal$model[a]="Pool"
                }
                
  
@@ -325,6 +331,8 @@ panelAnalisys=function(eqs,outputFolder,data,eqsType){
              # Realiza prueba Hausman y registra en tabla:
              
              panelTests$hTest[a]="pool regression selected"
+             panelTests$model[a]="pool regression selected"
+             
              
              # Guarda el mejor modelo:
              modeloFinal$coeficientes[a]=eqsTableScores[a,1]
@@ -332,7 +340,8 @@ panelAnalisys=function(eqs,outputFolder,data,eqsType){
              modeloFinal$tvals[a]=robustTvalsTable[a,1]
              modeloFinal$pvals[a]=robustPvalsTable[a,1]
              modeloFinal$llfs[a]=llfTableScores[a,1]
-             modeloFinal$aics[a]=aicTableScores[a,1]                         
+             modeloFinal$aics[a]=aicTableScores[a,1]   
+             modeloFinal$model[a]="Pool"
            },
            
            "fixedEffects"={
@@ -379,6 +388,7 @@ panelAnalisys=function(eqs,outputFolder,data,eqsType){
              # Realiza prueba Hausman y registra en tabla:
              
              panelTests$hTest[a]="fixed-effects (within) selected"
+             panelTests$model[a]="fixed-effects (within) selected"
              
              # Guarda el mejor modelo:
              modeloFinal$coeficientes[a]=eqsTableScores[a,2]
@@ -387,6 +397,7 @@ panelAnalisys=function(eqs,outputFolder,data,eqsType){
              modeloFinal$pvals[a]=robustPvalsTable[a,2]
              modeloFinal$llfs[a]=llfTableScores[a,2]
              modeloFinal$aics[a]=aicTableScores[a,2]  
+             modeloFinal$model[a]="Fixed eff."
              
            },
            
@@ -435,6 +446,7 @@ panelAnalisys=function(eqs,outputFolder,data,eqsType){
              # Realiza prueba Hausman y registra en tabla:
             
              panelTests$hTest[a]="random effects selected"
+             panelTests$model[a]="random effects selected"
              
              # Guarda el mejor modelo:
              modeloFinal$coeficientes[a]=eqsTableScores[a,3]
@@ -443,6 +455,7 @@ panelAnalisys=function(eqs,outputFolder,data,eqsType){
              modeloFinal$pvals[a]=robustPvalsTable[a,3]
              modeloFinal$llfs[a]=llfTableScores[a,3]
              modeloFinal$aics[a]=aicTableScores[a,3]
+             modeloFinal$model[a]="Random eff."
              
            }
            )
@@ -456,7 +469,8 @@ panelAnalisys=function(eqs,outputFolder,data,eqsType){
     subdir1=dir.create(folder)
   }
   
-  # 
+  # Generates de panel regressions summary table:
+  print("prueba aquí...")
   eval(
     parse(
       text=paste0(
@@ -468,6 +482,9 @@ panelAnalisys=function(eqs,outputFolder,data,eqsType){
         
         "add.lines=list(",
         
+        "c('Model',",
+        paste0(as.character(modeloFinal$model),collapse=","),
+        "),",
         "c('LLF',",
         paste0(round(modeloFinal$llfs,digits=4),collapse=","),
         "),",

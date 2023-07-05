@@ -147,7 +147,7 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
              if (continueRandomEf[1]){
               
 # Random effects is na then fixed effects within:
-               print("efectos aletorios estimados...")
+              
                
                # Registra nombre en tabla de modelos:
                eqsTableScores$Random[a]=paste0("fixedEf",a)
@@ -212,7 +212,7 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
                  
              } else {
 # Random effects is not na:
-               print("efectos Fijos estimados...")
+             
                # Registra nombre en tabla de modelos:
                eqsTableScores$Random[a]=paste0("randomEf",a)
                
@@ -470,6 +470,10 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
   }
   
   # 
+  
+  modelVector=paste0(paste("'",modeloFinal$model,sep=""),"'",collapse=",")
+  
+  
   eval(
     parse(
       text=paste0(
@@ -481,7 +485,7 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
         
         "add.lines=list(",
         "c('Model',",
-        paste0(as.character(modeloFinal$model),collapse=","),
+        modelVector,
         "),",        
         "c('LLF',",
         paste0(round(modeloFinal$llfs,digits=4),collapse=","),

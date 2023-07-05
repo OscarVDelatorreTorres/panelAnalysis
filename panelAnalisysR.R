@@ -497,7 +497,7 @@ panelAnalisys=function(eqs,outputFolder,data,eqsType){
   
   # Exporta tabla de pValues:
   eval(parse(text=paste0("stargazer(robustPvalsTable,summary=FALSE,type='html',rownames = FALSE,
-  title='Regressions' p-values,
+  title='Regression p-values',
           out=paste0(","c('",
                          paste0(folder,"/pValuesregs.doc'"),",'",
                          paste0(folder,"/pValuesRegs.xls'"),

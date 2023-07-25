@@ -1,0 +1,3 @@
+# panelAnalysis
+
+The present R function executes...

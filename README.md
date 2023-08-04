@@ -148,9 +148,7 @@ The `outPutPanel` object is a list one. It includes 3 objects inside:
 3. `outPutTable`: Is the type text stargazer table of the estimated models.
 4. `inputSummary`: Is the input data statistical summary.
 
-As you can note, the `panelAnalysys` function is quite flexible and you can run several sets of panel regressions as you want. Just keep in mind that the number of equations to estimate is limited by the page size in *.docx and *tex files. In the *.xlsx you have more space because you are cworkign with worksheets.
-
-An interactive example of this readme file can be found [in this link](www.google.com). There you can run this example by interacting and executing the R code online.
+As you can note, the `panelAnalysys` function is quite flexible, and you can run several sets of panel regressions as you want. Remember that the number of equations to estimate is limited by the page size in *.docx and *tex files. In the *.xlsx you have more space because you are cworkign with worksheets.
 
 # References 
 

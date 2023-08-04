@@ -103,8 +103,10 @@ data("Grunfeld")
 # folder specification (let's assume that the output filer will be stored in the same folder of the *.Rmd file you created for this code chunk):
 outFolder="outputPanelFolder
 # Equations to be estimated (6 regressions):
-eqVector=c("inv~v","inv~k","inv~k+t","inv~k+t","inv~k+t","inv~k+t")
+eqrVector=c("inv~v","inv~k","inv~k+t","inv~k+t","inv~k+t","inv~k+t")
 # Models to be estimated (6 regresions):
 eqsTypeVector=c("bestFitting","bestFitting","poolRegression","fixedEffects","randomEffects","bestFitting")
-# Lets asume that 
+
+# Now, let's run the model and have fun:
+outPutPanel=panelAnalysis(eqsVector,outputFolder,Grunfeld,eqsTypeVector)
 ```

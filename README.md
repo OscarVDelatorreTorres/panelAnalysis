@@ -18,7 +18,9 @@ I strongly invite you to execute this function in Rstudio in a Rmarkdown (*.Rmd)
 
 Because this function is in development (there is no R official package yet. it is to be published soon), you need to run (in your Rmarkdown chunk or the R console terminal) the next syntax:
 
-`source("https://raw.githubusercontent.com/OscarVDelatorreTorres/panelAnalysis/main/panelAnalysisR.R")`
+```{r cinstallChunk}
+source("https://raw.githubusercontent.com/OscarVDelatorreTorres/panelAnalysis/main/panelAnalysisR.R")
+```
 
 You will download the panelAnalysis, `logLik`, `AIC`, `BIC`, and `HQIC` functions by running it. The first function is the one of main interest, and the remaining three are also functions that I developed to estimate the log-likelihood function, the Akaike (1974), the Bayesian or Swchwarz (1978), and the Hannan-Quinn (1979) information criteria. Related to these three criteria, the original `plm` package has no function to estimate these. Therefore, these three functions are a new addition to Econometric analysis. Their use will be detailed next.
 

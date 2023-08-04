@@ -8,6 +8,8 @@ Finally, the researcher would like to perform the panel regression analysis with
 
 Estimating several panel regressions, with robust standard errors and the corresponding fitting tests, is a task that could be done by programming with R. Still, it would need several code lines (Please refer to [Colonescu](https://bookdown.org/ccolonescu/RPoE4/)(2016) for more detail).
 
-The present function (panelAnalysis) in its first version deals with this issue in R. Given a data frame object (`Data`), an $n$ elements function vector `eqs` a character object `folder` that specifies the output folder for the analysyis tables and an $n$ elements `eqsType` object specifying
+The present function (panelAnalysis) in its first version deals with this issue in R. Given a data frame object (`data`), an $n$ elements function vector `eqs`, a character object `outputFolder` that specifies the output folder for the analysis tables, and an $n$ elements `eqsType` object specifying the type of model to estimate, the next function or syntax estimates the set of regressions of interest:
 
-If t
+`outPutPanel=panelAnalysis(eqs,outputFolder,data,eqsType)`
+
+

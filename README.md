@@ -24,7 +24,13 @@ source("https://raw.githubusercontent.com/OscarVDelatorreTorres/panelAnalysis/ma
 
 You will download the panelAnalysis, `logLik`, `AIC`, `BIC`, and `HQIC` functions by running it. The first function is the one of main interest, and the remaining three are also functions that I developed to estimate the log-likelihood function, the Akaike (1974), the Bayesian or Swchwarz (1978), and the Hannan-Quinn (1979) information criteria. Related to these three criteria, the original `plm` package has no function to estimate these. Therefore, these three functions are a new addition to Econometric analysis. Their use will be detailed next.
 
-A prerequisite for this function is to install the `plm` package and to call it, along with the `stargazer` one.
+A prerequisite for this function is the next set of packages:
+
+- plm 
+- stargazer
+- sandwich
+- lmtest
+- officer
 
 ## A small example
 
@@ -36,7 +42,19 @@ In the previous expression, $inv_{i,t}$ is the investment level of the i-th comp
 
 To estimate
 
-```{r global_options, include = FALSE}
+```{r example}
+# Installing or uploading the necessary libraries and functions:
+if (!require(plm)) {install.packages('plm')
+  library(plm)} else {library(plm)}
+if (!require(stargazer)) {install.packages('stargazer')
+  library(stargazer)} else {library(stargazer)}
+if (!require(sandwich)) {install.packages('sandwich')
+  library(sandwich)} else {library(sandwich)}
+if (!require(lmtest)) {install.packages('lmtest')
+  library(lmtest)} else {library(lmtest)}
+if (!require(officer)) {install.packages('officer')
+  library(officer)} else {library(officer)}
+
 library(knitr)
 options(width = 120)
 opts_chunk$set(fig.width = 12, fig.height = 8, fig.path = 'Figs/',

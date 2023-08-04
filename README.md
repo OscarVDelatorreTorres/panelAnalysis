@@ -36,8 +36,12 @@ Is it important to highlight that the `eqsType` object has 4 possible models to 
 
 1. Pooled regression (the input for this parameter is `"poolRegression"`).
 2. Fixed effects (within groups) and with no time effects control (the input for this parameter is `"fixedEffects"`).
-3. The Swamy-Arora (1972) random effects model (the input for this parameter is `"randomEffects"`).
+3. The Swamy-Arora (1972) random effects model (the input for this parameter is `"randomEffects"`). For other random effects methods or the instrumental variable method, please wait for future updates in the function.
 4. To allow the function to estimate the three available type of panel regression models and to test for the best one, given the F and Hausman (1978) test (the input for this parameter is `"bestFitting"`).
+
+**As an important estimation note**: If the fixed effects or the random effects model can not be estimated in the `"bestFitting"` option of the `eqsType` parameter, the function will deliver the only feasible and best fitting (possible pooled regression) model. If you select `"fixedEffects"` or `"randomEffects"` and the model is not feasible due to your sample data, the output tables will show a zero in that column.
+
+The `plm`package (and also this function) can estimate the regressions either with balanced or unbalanced regressions
 
 ## A small example
 

@@ -30,7 +30,14 @@ A prerequisite for this function is the next set of packages:
 - stargazer
 - sandwich
 - lmtest
-- officer
+- officer 
+
+Is it important to highlight that the `eqsType` object has 4 possible models to estimate (in future versions I will include more panel regression variants of these):
+
+1. Pooled regression (the input for this parameter is `"poolRegression"`).
+2. Fixed effects (within groups) and with no time effects control (the input for this parameter is `"fixedEffects"`).
+3. The Swamy-Arora (1972) random effects model (the input for this parameter is `"randomEffects"`).
+4. To allow the function to estimate the three available type of panel regression models and to test for the best one, given the F and Hausman (1978) test (the input for this parameter is `"bestFitting"`).
 
 ## A small example
 
@@ -42,10 +49,11 @@ In the previous expression, $inv_{i,t}$ is the investment level of the i-th comp
 
 To expose the use of the function, let's assume that we want to estimate these three functions:
 
-- $$inv_{i,t}=\alpha+\beta_1v_{i,t}+\varepsilon_{i,t}$$
-- $$inv_{i,t}=\alpha+\beta_2k_{i,t}+\varepsilon_{i,t}$$
-- $$inv_{i,t}=\alpha+\beta_1v_{i,t}+\beta_2k_{i,t}+\varepsilon_{i,t}$$
+1. $$inv_{i,t}=\alpha+\beta_1v_{i,t}+\varepsilon_{i,t}$$
+2. $$inv_{i,t}=\alpha+\beta_2k_{i,t}+\varepsilon_{i,t}$$
+3. $$inv_{i,t}=\alpha+\beta_1v_{i,t}+\beta_2k_{i,t}+\varepsilon_{i,t}$$
 
+Also, let's assume that we want to compare the fourth model in a pool, fixed-effects, and random effects
 To estimate
 
 ```{r example}
@@ -73,5 +81,6 @@ data("Grunfeld")
 # folder specification (let's assume that the output filer will be stored in the same folder of the *.Rmd file you created for this code chunk):
 folder="outputPanelFolder"
 
+# 
 # Lets asume that 
 ```

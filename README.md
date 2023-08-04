@@ -14,7 +14,7 @@ The present function (panelAnalysis) in its first version deals with this issue 
 
 ## Installing the function
 
-I strongly invite you to execute this function in Rstudio in a Rmarkdown (*.Rmd) file. Why? Because the output folder path would be easier to set by just giving the name of the output folder in. the `outputFolder` input. If you want to run it in the R console it is fine. Just keep in mind to give the full harddrive path for the output folder (`C:/.../outputFolder`).
+I strongly invite you to execute this function in Rstudio in a Rmarkdown (*.Rmd) file. Why? Because the output folder path would be easier to set by just giving the name of the output folder in. the `outputFolder` input. If you want to run it in the R console it is fine. Just remember to give the full harddrive path for the output folder (`C:/.../outputFolder`).
 
 Because this function is in development (there is no R official package yet. it is to be published soon), you need to run (in your Rmarkdown chunk or the R console terminal) the next syntax:
 
@@ -22,11 +22,14 @@ Because this function is in development (there is no R official package yet. it 
 
 You will download the panelAnalysis, `logLik`, `AIC`, `BIC`, and `HQIC` functions by running it. The first function is the one of main interest, and the remaining three are also functions that I developed to estimate the log-likelihood function, the Akaike (1974), the Bayesian or Swchwarz (1978), and the Hannan-Quinn (1979) information criteria. Related to these three criteria, the original `plm` package has no function to estimate these. Therefore, these three functions are a new addition to Econometric analysis. Their use will be detailed next.
 
+A prerequisite for this function is to install the `plm` package and to call it, along with the `stargazer` one.
+
 ## A small example
 
 Following the Carter-hill et al. (2011) examples for the panel data regression, I would like to use the Grunfeld example in that book. The authors estimated the next panel regression model:
 
 $$inv_{i,t}=\alpha+\beta_1v_{i,t}+\beta_2k_{i,t}+\varepsilon_{i,t}$$
 
-s
+In the previous expression, $inv_{i,t}$ is the investment level of the i-th company (in USD millions), $v_{i,t}$ is the company value, and $k_{i,t}$ is the amount of capital.
 
+To 

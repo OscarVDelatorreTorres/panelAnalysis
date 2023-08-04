@@ -1,4 +1,4 @@
-# panelAnalysis V. 1.0
+# panelAnalysis V. 1.0 (beta)
 ## Introduction
 The panelAnalysis function is a starting one developed by [Dr. Oscar V. De la Torre Torres](https://oscardelatorretorres.com) to support the basic panel analysis for Econometrics-related students and researchers. If a given academic wants to perform an $n$ number of regressions, he or she must decide which panel regression model is the best fitting (from pooled regression, fixed-effects, or random effects). The appropriate process is to estimate the three models and use the F and Hausman (1978) tests. This leads to performing the estimation of the three models and the estimation of these two tests.
 
@@ -20,13 +20,13 @@ Because this function is in development (there is no R official package yet. it 
 
 `source("https://raw.githubusercontent.com/OscarVDelatorreTorres/panelAnalysis/main/panelAnalysisR.R")`
 
-You will download the panelAnalysis, logLik, AIC, BIC, and HQIC functions by running it. The first function is the one of main interest, and the remaining three are also functions that I developed to estimate the log-likelihood function, the Akaike (1974), the Bayesian or Swchwarz (1978), and the Hannan-Quinn (1979) information criteria. Related to these three criteria, the original `plm` package has no function to estimate these. Therefore, these three functions are a new addition to Econometric analysis. Their use will be detailed next.
+You will download the panelAnalysis, `logLik`, `AIC`, `BIC`, and `HQIC` functions by running it. The first function is the one of main interest, and the remaining three are also functions that I developed to estimate the log-likelihood function, the Akaike (1974), the Bayesian or Swchwarz (1978), and the Hannan-Quinn (1979) information criteria. Related to these three criteria, the original `plm` package has no function to estimate these. Therefore, these three functions are a new addition to Econometric analysis. Their use will be detailed next.
 
 ## A small example
 
 Following the Carter-hill et al. (2011) examples for the panel data regression, I would like to use the Grunfeld example in that book. The authors estimated the next panel regression model:
 
-$$a=2$$
+$$inv_{i,t}=\alpha+\beta_1v_{i,t}+\beta_2k_{i,t}+\varepsilon_{i,t}$$
 
 s
 

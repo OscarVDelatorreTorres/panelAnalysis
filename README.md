@@ -34,10 +34,9 @@ In the previous expression, $inv_{i,t}$ is the investment level of the i-th comp
 
 To estimate
 
-`
-# Texto:
-library(plm)
-library(stargazer
-dd
-
-`
+```{r global_options, include = FALSE}
+library(knitr)
+options(width = 120)
+opts_chunk$set(fig.width = 12, fig.height = 8, fig.path = 'Figs/',
+               include = TRUE, warning = FALSE, message = FALSE)
+```

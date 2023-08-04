@@ -32,4 +32,12 @@ $$inv_{i,t}=\alpha+\beta_1v_{i,t}+\beta_2k_{i,t}+\varepsilon_{i,t}$$
 
 In the previous expression, $inv_{i,t}$ is the investment level of the i-th company (in USD millions), $v_{i,t}$ is the company value, and $k_{i,t}$ is the amount of capital.
 
-To 
+To estimate
+
+`
+# Texto:
+library(plm)
+library(stargazer
+dd
+
+`

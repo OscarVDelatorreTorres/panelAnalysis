@@ -40,10 +40,16 @@ $$inv_{i,t}=\alpha+\beta_1v_{i,t}+\beta_2k_{i,t}+\varepsilon_{i,t}$$
 
 In the previous expression, $inv_{i,t}$ is the investment level of the i-th company (in USD millions), $v_{i,t}$ is the company value, and $k_{i,t}$ is the amount of capital.
 
+To expose the use of the function, let's assume that we want to estimate these three functions:
+
+- $$inv_{i,t}=\alpha+\beta_1v_{i,t}+\varepsilon_{i,t}$$
+- $$inv_{i,t}=\alpha+\beta_2k_{i,t}+\varepsilon_{i,t}$$
+- $$inv_{i,t}=\alpha+\beta_1v_{i,t}+\beta_2k_{i,t}+\varepsilon_{i,t}$$
+
 To estimate
 
 ```{r example}
-# Installing or uploading the necessary libraries and functions:
+#==== Installing or uploading the necessary libraries and functions =====
 if (!require(plm)) {install.packages('plm')
   library(plm)} else {library(plm)}
 if (!require(stargazer)) {install.packages('stargazer')
@@ -55,8 +61,17 @@ if (!require(lmtest)) {install.packages('lmtest')
 if (!require(officer)) {install.packages('officer')
   library(officer)} else {library(officer)}
 
-library(knitr)
-options(width = 120)
-opts_chunk$set(fig.width = 12, fig.height = 8, fig.path = 'Figs/',
-               include = TRUE, warning = FALSE, message = FALSE)
+# The panelAnalysis function upload:
+
+source("https://raw.githubusercontent.com/OscarVDelatorreTorres/panelAnalysis/main/panelAnalysisR.R")
+
+#==== Data upload ====
+# Uploading the Grunfeld data:
+data("Grunfeld")
+
+#==== Running the model ====
+# folder specification (let's assume that the output filer will be stored in the same folder of the *.Rmd file you created for this code chunk):
+folder="outputPanelFolder"
+
+# Lets asume that 
 ```

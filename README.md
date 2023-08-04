@@ -24,6 +24,12 @@ source("https://raw.githubusercontent.com/OscarVDelatorreTorres/panelAnalysis/ma
 
 You will download the panelAnalysis, `logLik`, `AIC`, `BIC`, and `HQIC` functions by running it. The first function is the one of main interest, and the remaining three are also functions that I developed to estimate the log-likelihood function, the Akaike (1974), the Bayesian or Swchwarz (1978), and the Hannan-Quinn (1979) information criteria. Related to these three criteria, the original `plm` package has no function to estimate these. Therefore, these three functions are a new addition to Econometric analysis. Their use will be detailed next.
 
+As mentioned, to estimate the set of panel regressions of interest, you will need to use the next R syntax:
+
+```{r functionExample}
+`outPutPanel=panelAnalysis(eqs,outputFolder,data,eqsType)`
+```
+
 A prerequisite for this function is the next set of packages:
 
 - plm 
@@ -36,12 +42,12 @@ Is it important to highlight that the `eqsType` object has 4 possible models to 
 
 1. Pooled regression (the input for this parameter is `"poolRegression"`).
 2. Fixed effects (within groups) and with no time effects control (the input for this parameter is `"fixedEffects"`).
-3. The Swamy-Arora (1972) random effects model (the input for this parameter is `"randomEffects"`). For other random effects methods or the instrumental variable method, please wait for future updates in the function.
+3. The Swamy-Arora (1972) random effects model (the input for this parameter is `"randomEffects"`). Please wait for future updates in the function for other random effects methods or the instrumental variable method.
 4. To allow the function to estimate the three available type of panel regression models and to test for the best one, given the F and Hausman (1978) test (the input for this parameter is `"bestFitting"`).
 
-**As an important estimation note**: If the fixed effects or the random effects model can not be estimated in the `"bestFitting"` option of the `eqsType` parameter, the function will deliver the only feasible and best fitting (possible pooled regression) model. If you select `"fixedEffects"` or `"randomEffects"` and the model is not feasible due to your sample data, the output tables will show a zero in that column.
+**As an important estimation note**: If the fixed effects or the random effects model can not be estimated in the `"bestFitting"` option of the `eqsType` parameter, the function will deliver the only feasible and best fitting (possible pooled regression) model. If you select " fixedEffects " or " randomEffects " and the model is not feasible due to your sample data, the output tables will show a zero in that column.
 
-The `plm`package (and also this function) can estimate the regressions either with balanced or unbalanced regressions
+The `plm` package (and this function) can estimate the regressions with balanced or unbalanced panels.
 
 ## A small example
 
@@ -59,6 +65,8 @@ To expose the use of the function, let's assume that we want to estimate these t
 
 Also, let's assume that we want to compare the fourth model in a pool, fixed-effects, and random effects
 To estimate
+
+**Another important estimation note**: the objects `eqs` and `eqsType` **must have the same length**. If you are going to estimate $n$ regressions, `eqs` and `eqsType` must have the text of the corresponding equations. That is, they must have a length of $n$. Please refer to the example for this issue.
 
 ```{r example}
 #==== Installing or uploading the necessary libraries and functions =====
@@ -83,8 +91,9 @@ data("Grunfeld")
 
 #==== Running the model ====
 # folder specification (let's assume that the output filer will be stored in the same folder of the *.Rmd file you created for this code chunk):
-folder="outputPanelFolder"
+outFolder="outputPanelFolder
+# Equations:
+eqVector=c("")
 
-# 
 # Lets asume that 
 ```

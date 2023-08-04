@@ -1,6 +1,6 @@
 # panelAnalysis V. 1.0 (beta)
 ## Introduction
-The panelAnalysis function is a starting one developed by [Dr. Oscar V. De la Torre Torres](https://oscardelatorretorres.com) to support the basic panel analysis for Econometrics-related students and researchers. If a given academic wants to perform an $n$ number of regressions, he or she must decide which panel regression model is the best fitting (from pooled regression, fixed-effects, or random effects). The appropriate process is to estimate the three models and use the F and Hausman (1978) tests. This leads to performing the estimation of the three models and the estimation of these two tests.
+The panelAnalysis function is a starting one developed by [Dr. Oscar V. De la Torre Torres](https://oscardelatorretorres.com) to support the basic panel analysis for Econometrics-related students and researchers. If a given academic wants to perform an $n$ number of regressions, he or she must decide which panel regression model best fits (from pooled regression, fixed-effects, or random effects). The appropriate process is to estimate the three models and use the F and Hausman (1978) tests. This leads to performing the estimation of the three models and the estimation of these two tests.
 
 This task can be done with the [plm package](https://github.com/ycroissant/plm/) of [Croissant and Millo](https://cran.r-project.org/web/packages/plm/vignettes/A_plmPackage.html). Imagine that this student or researcher wants to run $n=6$ different regression models and develop a summary table with the best-fitting regression in each $n$ equation. This would need to estimate 18 regressions (6 pooled, fixed-effects, and random-effects regressions) and a summary table of the 12 (6 f and 6 Hausman tests) fitting tests. Also, imagine that this student or researcher wants to export that summary table in *.docx, *.xls, or *.tex file.
 
@@ -14,7 +14,7 @@ The present function (panelAnalysis) in its first version deals with this issue 
 
 ## Installing the function
 
-I strongly invite you to execute this function in Rstudio in a Rmarkdown (*.Rmd) file. Why? Because the output folder path would be easier to set by just giving the name of the output folder in. the `outputFolder` input. If you want to run it in the R console it is fine. Just remember to give the full harddrive path for the output folder (`C:/.../outputFolder`).
+I strongly invite you to execute this function in Rstudio in a Rmarkdown (*.Rmd) file. Why? Because the output folder path would be easier to set by just giving the name of the output folder in. the `outputFolder` input. If you want to run it in the R console it is fine. Remember to give the full hard drive path for the output folder (`C:/.../outputFolder`).
 
 Because this function is in development (there is no R official package yet. it is to be published soon), you need to run (in your Rmarkdown chunk or the R console terminal) the next syntax:
 
@@ -38,7 +38,7 @@ A prerequisite for this function is the next set of packages:
 - lmtest
 - officer 
 
-Is it important to highlight that the `eqsType` object has 4 possible models to estimate (in future versions I will include more panel regression variants of these):
+Is it important to highlight that the `eqsType` object has 4 possible models to estimate (in future versions, I will include more panel regression variants of these):
 
 1. Pooled regression (the input for this parameter is `"poolRegression"`).
 2. Fixed effects (within groups) and with no time effects control (the input for this parameter is `"fixedEffects"`).
@@ -63,10 +63,20 @@ To expose the use of the function, let's assume that we want to estimate these t
 2. $$inv_{i,t}=\alpha+\beta_2k_{i,t}+\varepsilon_{i,t}$$
 3. $$inv_{i,t}=\alpha+\beta_1v_{i,t}+\beta_2k_{i,t}+\varepsilon_{i,t}$$
 
-Also, let's assume that we want to compare the fourth model in a pool, fixed-effects, and random effects
+Also, let's assume that we want to compare the fourth model in a pool, fixed-effects, and random effects.
 To estimate
 
 **Another important estimation note**: the objects `eqs` and `eqsType` **must have the same length**. If you are going to estimate $n$ regressions, `eqs` and `eqsType` must have the text of the corresponding equations. That is, they must have a length of $n$. Please refer to the example for this issue.
+
+The input data of this example has 5 columns:
+
+1. `inv` that is $inv_{i,t}$.
+2. `v` that is $v_{i,t}$.
+3. `k` that is $k_{i,t}$.
+4. `firm` that identifies the firm of the i-th row of data.
+5. `year` that identifies the year or time of the i-th row of data.
+
+The first three columns are the ones used in the conventional `plm` function and the data from the source is already a `pdata.frame` object (please refer to the [book of Colonescu](https://bookdown.org/ccolonescu/RPoE4/panel-data-models.html#organizing-the-data-as-a-panel) for more detail on how to create a `pdata.frame` object)
 
 ```{r example}
 #==== Installing or uploading the necessary libraries and functions =====
@@ -92,8 +102,9 @@ data("Grunfeld")
 #==== Running the model ====
 # folder specification (let's assume that the output filer will be stored in the same folder of the *.Rmd file you created for this code chunk):
 outFolder="outputPanelFolder
-# Equations:
-eqVector=c("")
-
+# Equations to be estimated (6 regressions):
+eqVector=c("inv~v","inv~k","inv~k+t","inv~k+t","inv~k+t","inv~k+t")
+# Models to be estimated (6 regresions):
+eqsTypeVector=c("bestFitting","bestFitting","poolRegression","fixedEffects","randomEffects","bestFitting")
 # Lets asume that 
 ```

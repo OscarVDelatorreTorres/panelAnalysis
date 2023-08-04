@@ -14,7 +14,13 @@ The present function (panelAnalysis) in its first version deals with this issue 
 
 ## Installing the function
 
-I strongly invite you to execute this function in Rstudio in a Rmarkdown (*.Rmd) file. Why? Because the output folder path would be easier to set by just giving the name of the output folder in. the `outputFolder` input. If you want to run it in the R conselo its fine. Just keep in mind to give the full hardrive path for the output folder (`C:/.../outputFolder`)
+I strongly invite you to execute this function in Rstudio in a Rmarkdown (*.Rmd) file. Why? Because the output folder path would be easier to set by just giving the name of the output folder in. the `outputFolder` input. If you want to run it in the R console it is fine. Just keep in mind to give the full harddrive path for the output folder (`C:/.../outputFolder`).
+
+Because this function is on development, you need to run (in your Rmarkdown chunk or the R console terminal) the next syntax:
+
+`source("https://raw.githubusercontent.com/OscarVDelatorreTorres/panelAnalysis/main/panelAnalysisR.R")`
+
+You will download the panelAnalysis, logLik, AIC, BIC, and HQIC functions by running it. The first function is the one of main interest, and the remaining three are also functions that I developed to estimate the log-likelihood function, the Akaike 
 
 ## A small example
 

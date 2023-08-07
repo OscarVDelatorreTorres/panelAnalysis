@@ -14,7 +14,7 @@ Estimating several panel regressions, with robust standard errors and the corres
 The present function (panelAnalysis) in its first version deals with this issue in R. Given a data frame object (`data`), an $n$ elements function vector `eqs`, a character object `outputFolder` that specifies the output folder for the analysis tables, and an $n$ elements `eqsType` object specifying the type of model to estimate, the next function or syntax estimates the set of regressions of interest:
 
 ```{r functionExampleA, eval=FALSE}
-outPutPanel=panelAnalysis(eqs,outputFolder,data,eqsType)`
+outPutPanel=panelAnalysis(eqs,outputFolder,data,eqsType)
 ```
 
 ## Installing the function

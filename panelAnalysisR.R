@@ -641,6 +641,44 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
     )
   )  
   
+  # V1.1 beta change (2-11-2023)
+  # HTML object stargazer table:
+  cat("\f")
+  print("Exporting panel data analysis to LaTex file...")
+
+  eval(
+    parse(
+      text=paste0(
+        "outPutTableHTML=stargazer(",paste0(modeloFinal$coeficientes,collapse=","),
+        ",type='html',",
+        "digit.separator=',',digit.separate=3,",       
+        "se=list(",paste0(modeloFinal$es,collapse=","),"),",
+        "t=list(",paste0(modeloFinal$es,collapse=","),"),",
+        "p=list(",paste0(modeloFinal$pvals,collapse=","),"),",
+        
+        "add.lines=list(",
+        "c('Model',",
+        modelVector,
+        "),",        
+        "c('LLF',",
+        paste0(round(modeloFinal$llfs,digits=4),collapse=","),
+        "),",
+        "c('AIC',",
+        paste0(round(modeloFinal$aics,digits=4),collapse=","),
+        "),",
+        "c('BIC',",
+        paste0(round(modeloFinal$bics,digits=4),collapse=","),
+        "),",
+        "c('HQIC',",
+        paste0(round(modeloFinal$hqics,digits=4),collapse=","),
+        ")",        
+        "),",
+        
+        "report='vc*',no.space=TRUE,digits=4)"
+      )
+    )
+  )  
+  
   # Exporta pruebas F y de Hausman:
   colnames(panelTests)=c("Regression","f-test","Hausman test","Best fitting model")
   
@@ -679,7 +717,8 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
     pValues=robustPvalsTable,
     panelTable=modeloFinal,
     outPutTable=outPutTable,
-    inputSummary=inputSummary
+    inputSummary=inputSummary,
+    outPutTableHTML=outPutTableHTML
   )
   
   cat("\f")

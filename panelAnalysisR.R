@@ -674,7 +674,11 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
         ")",        
         "),",
         
-        "report='vc*',no.space=TRUE,digits=4)"
+        "report='vc*',no.space=TRUE,digits=4,",
+        "out=c('",
+        paste0(folder,"/panelFinalReg.html'"),
+        ")",
+        ")"
       )
     )
   )  

@@ -170,4 +170,4 @@ Is the original beta version of this function. Written and published in August 7
 
 ## Version 1.1 beta
 
-This new version writes a *.html output panel regression table and saves that html table in the output object. Version at November, 2nd of 2023.
+This new version writes an *.html output panel regression table and saves that html table in the output object. Version at November, 2nd of 2023.

@@ -161,3 +161,13 @@ Hausman, J. A. (1978). Specification tests in econometrics. Econometrica, 46(6),
 5. Newey, W. K., & West, K. D. (1987). A Simple, Positive Semi-Definite, Heteroskedasticity and Autocorrelation Consistent Covariance Matrix. Econometrica, 55(3), 703-708.
 6. Schwarz, G. (1978). Estimating the dimension of a model. The annals of Statistics, 6(2), 461-464.
 7. Swamy, P. A. V. B., & Arora, S. S. (1972). The Exact Finite Sample Properties of the Estimators of Coefficients in the Error Components Regression Models. Econometrica, 40(2), 261. https://doi.org/10.2307/1909405
+
+# Version control
+
+## Version 1.0 beta
+
+Is the original beta version of this function. Written and published in August 7th of 2023.
+
+## Version 1.1 beta
+
+This new version writes a *.html output panel regression table and saves that html table in the output object. Version at November, 2nd of 2023.

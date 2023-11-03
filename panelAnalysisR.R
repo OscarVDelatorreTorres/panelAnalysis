@@ -644,7 +644,7 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
   # V1.1 beta change (2-11-2023)
   # HTML object stargazer table:
   cat("\f")
-  print("Exporting panel data analysis to LaTex file...")
+  print("Exporting panel data analysis to HTML file...")
 
   eval(
     parse(

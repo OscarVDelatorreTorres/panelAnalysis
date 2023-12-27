@@ -75,7 +75,7 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
              eval(
                parse(
                  text=paste0("tbl = coeftest(pool",a, 
-                             ",vcov=vcovNW(pool",a,",cluster='group'))")
+                             ",vcov=vcovSCC(pool",a,",cluster='group'))") #vcov=vcovNW(pool",a,",cluster='group')
                )
              )
              
@@ -121,7 +121,7 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
              eval(
                parse(
                  text=paste0("tbl = coeftest(fixedEf",a, 
-                             ",vcov=vcovNW(fixedEf",a,",cluster='group'))")
+                             ",vcov=vcovSCC(fixedEf",a,",cluster='group'))") #vcovNW(fixedEf",a,",cluster='group')
                )
              )
              
@@ -276,7 +276,7 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
                eval(
                  parse(
                    text=paste0("tbl = coeftest(randomEf",a, 
-                               ",vcov=vcovNW(randomEf",a,",cluster='group'))")
+                               ",vcov=vcovSCC(randomEf",a,",cluster='group'))") #vcovNW(randomEf",a,",cluster='group')
                  )
                )
                
@@ -373,7 +373,7 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
              eval(
                parse(
                  text=paste0("tbl = coeftest(pool",a, 
-                             ",vcov=vcovNW(pool",a,",cluster='group'))")
+                             ",vcov=vcovSCC(pool",a,",cluster='group'))") #vcovNW(pool",a,",cluster='group')
                )
              )
              
@@ -442,7 +442,7 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
              eval(
                parse(
                  text=paste0("tbl = coeftest(fixedEf",a, 
-                             ",vcov=vcovNW(fixedEf",a,",cluster='group'))")
+                             ",vcov=vcovSCC(fixedEf",a,",cluster='group'))") #vcovNW(fixedEf",a,",cluster='group')
                )
              )
              
@@ -512,7 +512,7 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
              eval(
                parse(
                  text=paste0("tbl = coeftest(randomEf",a, 
-                             ",vcov=vcovNW(randomEf",a,",cluster='group'))")
+                             ",vcov=vcovSCC(randomEf",a,",cluster='group'))") #vcovNW(randomEf",a,",cluster='group')
                )
              )
              

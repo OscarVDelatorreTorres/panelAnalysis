@@ -590,7 +590,7 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
         ")",        
         "),",
         
-        "report='vc*',no.space=TRUE,digits=4,",
+        "report='vcs*',no.space=TRUE,digits=4,",
         "out=c('",
         paste0(folder,"/panelFinalReg.doc'"),",'",
         paste0(folder,"/panelFinalReg.xls'"),
@@ -632,7 +632,7 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
         ")",        
         "),",
         
-        "report='vc*',no.space=TRUE,digits=4,",
+        "report='vcs*',no.space=TRUE,digits=4,",
         "out=c('",
         paste0(folder,"/panelFinalReg.tex'"),
         ")",
@@ -674,7 +674,7 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
         ")",        
         "),",
         
-        "report='vc*',no.space=TRUE,digits=4,",
+        "report='vcs*',no.space=TRUE,digits=4,",
         "out=c('",
         paste0(folder,"/panelFinalReg.html'"),
         ")",

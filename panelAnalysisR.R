@@ -39,7 +39,7 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
     switch(eqsType[a],
            "bestFitting"={
              
-###############################################################################    
+#--- Estima regresiones tipo pool:#############################################    
 #--- Estima regresiones tipo pool:
              
              cat("\f")
@@ -85,7 +85,7 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
              
              robustPvalsTable$Pool[a]=paste0("c(",paste(round(tbl[,4],4),collapse=","),")")
              
-###############################################################################    
+#--- Estima regresiones tipo efectos fijos "within":###########################    
 #--- Estima regresiones tipo efectos fijos "within":
              
              cat("\f")
@@ -151,7 +151,7 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
                panelTests$model[a]="Pooled regression (best fitting)"
              }
              
-###############################################################################    
+#--- Estima regresiones tipo efectos aleatorios:###############################    
              
 #--- Estima regresiones tipo efectos aleatorios:
              
@@ -337,8 +337,8 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
            
            "poolRegression"={
 
-             ###############################################################################    
-             #--- Estima regresiones tipo pool:
+#--- Pool seleccionado:##############################################    
+             
              
              cat("\f")
              print(paste0("Calculating pool ",a," of ",neqs," for ",folder))
@@ -406,8 +406,8 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
            
            "fixedEffects"={
    
-             ###############################################################################    
-             #--- Estima regresiones tipo efectos fijos "within":
+#--- fixedEffects seleccionado:##############################    
+             
              
              cat("\f")
              print(paste0("Calculating fixed effects ",a," of ",neqs," for ",folder))
@@ -475,9 +475,9 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
            
            "randomEffects"={
 
-             ###############################################################################    
+#--- randomEffects seleccionado:#################################    
              
-             #--- Estima regresiones tipo efectos aleatorios:
+             
              
              cat("\f")
              print(paste0("Calculating random effects ",a," of ",neqs," for ",folder))
@@ -544,11 +544,10 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
            }
            )
 
-################################################################################    
 # Termina el loop de ecuaciones:        
     }
   
-  # Exporta resultados a excel y word:
+# Exporta resultados a excel y word:###########################################
   if (exists(folder)==FALSE) {
     subdir1=dir.create(folder)
   }

@@ -722,7 +722,8 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
     panelTable=modeloFinal,
     outPutTable=outPutTable,
     inputSummary=inputSummary,
-    outPutTableHTML=outPutTableHTML
+    outPutTableHTML=outPutTableHTML,
+    panelTests=panelTests
   )
   
   cat("\f")

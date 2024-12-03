@@ -19,7 +19,11 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
   robustErrorsTable=eqsTableScores
   robustTvalsTable=eqsTableScores
   robustPvalsTable=eqsTableScores
-  wooldrigeTest=eqsTableScores
+ 
+  wooldrigeTable=data.frame(model=paste0("Model ",seq(1:neqs)),
+                            Wooldrige=rep(0,neqs),
+                            Persaran=rep(0,neqs)
+                            )
   
   panelTests=data.frame(modelo=paste0("Model ",seq(from=1,to=neqs,by=1)),
                         fTest=matrix(0,neqs,1),
@@ -151,6 +155,8 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
              } else {
                panelTests$model[a]="Pooled regression (best fitting)"
              }
+             
+
              
 #--- Estima regresiones tipo efectos aleatorios:###############################    
              

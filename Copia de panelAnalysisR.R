@@ -19,7 +19,6 @@ panelAnalysis=function(eqs,outputFolder,data,eqsType){
   robustErrorsTable=eqsTableScores
   robustTvalsTable=eqsTableScores
   robustPvalsTable=eqsTableScores
-  wooldrigeTest=eqsTableScores
   
   panelTests=data.frame(modelo=paste0("Model ",seq(from=1,to=neqs,by=1)),
                         fTest=matrix(0,neqs,1),
